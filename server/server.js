@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
 // import { fileURLToPath } from 'url';
@@ -6,6 +7,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
+import exerciseRoutes from './routes/exerciseRoutes.js';
 
 // PORT defined in .env or defaults to 4000
 const PORT = process.env.PORT || 4000;
@@ -17,7 +19,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // 2) Routes
-app.use('/api/users', userRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/exercise', exerciseRoutes);
 app.post('/api/login', (req, res) => {
   console.log('in login');
 

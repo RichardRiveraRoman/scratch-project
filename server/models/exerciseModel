@@ -12,22 +12,22 @@ const exerciseSchema = new Schema({
       'Swimming',
       'Bodybuilding',
       'Other',
-    ], 
+    ],
   },
   distance: {
     type: Number,
     required: false, // Distance is optional (e.g., for bodybuilding or swimming)
-    min: 0, 
+    min: 0,
   },
   duration: {
     type: Number,
-    required: true, 
-    min: 1, 
+    required: true,
+    min: 1,
   },
   date: {
     type: Date,
     required: true,
-    default: Date.now, 
+    default: Date.now,
   },
   caloriesBurned: {
     type: Number,
@@ -36,8 +36,8 @@ const exerciseSchema = new Schema({
   },
   notes: {
     type: String,
-    required: false, 
-    maxlength: 500, 
+    required: false,
+    maxlength: 500,
   },
   userId: {
     type: Schema.Types.ObjectId,
@@ -47,5 +47,4 @@ const exerciseSchema = new Schema({
 });
 
 const Exercise = mongoose.model('Exercise', exerciseSchema);
-
-module.exports = Exercise;
+export default Exercise;

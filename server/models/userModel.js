@@ -39,6 +39,5 @@ userSchema.pre('save', async function (next) {
     next(error); // Pass any errors to the next middleware
   }
 });
-
-module.exports = mongoose.model('User', userSchema);
-
+const User = mongoose.model('User', userSchema);
+export default User;
