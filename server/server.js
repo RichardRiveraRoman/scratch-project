@@ -1,21 +1,43 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import 'dotenv/config';
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
 
-// PORT defined in .env or defaults to 4000;
+import express from 'express';
+import path from 'path';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import userRoutes from './routes/userRoutes.js';
+
+// PORT defined in .env or defaults to 4000
 const PORT = process.env.PORT || 4000;
 const app = express();
 
-// Middleware that handles parsing request body
+// 1) Core middleware
+app.use(cors()); // Enable CORS for all routes
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Routes
-app.use('/users');
+// 2) Routes
+app.use('/users', userRoutes);
 
-// Error handler
-app.use((err, _req, res) => {
+// Middleware: Serve static files
+// app.use(express.static(path.resolve(__dirname, '../dist')));
+
+// Wildcard route for SPA (React frontend)
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
+// });
+
+// 3) 404 or “Not Found” Handler
+app.use((req, res, next) => {
+  const error = new Error('Route Not Found');
+  error.status = 404;
+  next(error);
+});
+
+// 4) Error handler (keep it last)
+app.use((err, req, res, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unkown middleware error',
+    log: 'Express error handler caught unknown middleware error',
     status: 500,
     message: { err: 'An error occurred' },
   };
@@ -26,13 +48,6 @@ app.use((err, _req, res) => {
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-// Atlas database connection
-const { MONGO_URI } = process.env;
-if (!MONGO_URI) {
-  console.error('MONGO_URI not defined in .env file');
-  process.exit(1);
-}
-
 // MongoClientOptions object to set the Stable API version
 const clientOptions = {
   serverApi: { version: '1', strict: true, deprecationErrors: true },
@@ -41,7 +56,7 @@ const clientOptions = {
 async function startServer() {
   try {
     // Connect to MongoDB
-    await mongoose.connect(MONGO_URI, clientOptions);
+    await mongoose.connect(process.env.MONGO_URI, clientOptions);
     console.log('Successfully connected to MongoDB!');
 
     // Start the server only after the DB connection is successful
