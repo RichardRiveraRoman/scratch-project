@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
-
+// import { fileURLToPath } from 'url';
 import express from 'express';
-import path from 'path';
+// import path from 'path';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
@@ -17,15 +17,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // 2) Routes
-app.use('/users', userRoutes);
+app.use('/api/users', userRoutes);
+app.post('/api/login', (req, res) => {
+  console.log('in login');
 
-// Middleware: Serve static files
-// app.use(express.static(path.resolve(__dirname, '../dist')));
-
-// Wildcard route for SPA (React frontend)
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, '../dist/index.html'));
-// });
+  // const { username, password } = req.body;
+  res.status(200).json({ message: 'Login successful' });
+});
 
 // 3) 404 or “Not Found” Handler
 app.use((req, res, next) => {
