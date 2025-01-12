@@ -1,6 +1,9 @@
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/login';
+import Signup from './components/signup';
 import { useState } from 'react';
 import healthLogo from './assets/health_logo.png';
-import './App.css';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,6 +23,12 @@ function App() {
         </p>
       </div>
       <p className='read-the-docs'>Log in to learn more</p>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+        </Routes>
+      </Router>
     </>
   );
 }
