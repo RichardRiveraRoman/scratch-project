@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
+import { Link } from 'react-router';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
+import '../styles/login.css';
 
 const LoginPage = () => {
   const handleOAuthLogin = (e) => {
@@ -13,10 +15,10 @@ const LoginPage = () => {
   };
 
   return (
-    <Container className='mt-5'>
-      <Row className='justify-content-md-center'>
-        <Col md={4}>
-          <div className='text-center mb-4'>
+    <Container className='login-container'>
+      <Row className='justify-content-md-center '>
+        <Col md={4} className='border  rounded'>
+          <div className='text-center mb-4 '>
             <h2>Sign In</h2>
           </div>
           {/* OAuth Buttons */}
@@ -58,7 +60,7 @@ const LoginPage = () => {
           </Form>
           <div className='text-center mt-3'>
             <p>
-              Don&apos;t have an account? <a href='/signup'>Sign up here</a>
+              Don&apos;t have an account? <Link to='/signup'>Sign up here</Link>
             </p>
           </div>
         </Col>
