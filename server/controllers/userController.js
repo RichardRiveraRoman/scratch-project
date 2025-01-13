@@ -1,5 +1,5 @@
 import User from '../models/userModel.js';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const userController = {};
@@ -9,7 +9,9 @@ userController.registerUser = async (req, res) => {
   console.log('Registering user:', { name, email });
 
   if (!name || !email || !password) {
-    return res.status(400).json({ error: 'Name, email, and password are required' });
+    return res
+      .status(400)
+      .json({ error: 'Name, email, and password are required' });
   }
 
   try {
@@ -18,12 +20,15 @@ userController.registerUser = async (req, res) => {
       return res.status(400).json({ error: 'Email is already registered' });
     }
 
-
     const user = await User.create({ name, email, password });
-    return res.status(201).json({ message: 'User registered successfully', user });
+    return res
+      .status(201)
+      .json({ message: 'User registered successfully', user });
   } catch (error) {
     console.error('Error registering user:', error);
-    return res.status(500).json({ error: 'Failed to register user', details: error.message });
+    return res
+      .status(500)
+      .json({ error: 'Failed to register user', details: error.message });
   }
 };
 
@@ -53,7 +58,9 @@ userController.loginUser = async (req, res) => {
     return res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
     console.error('Error logging in user:', error);
-    return res.status(500).json({ error: 'Failed to log in', details: error.message });
+    return res
+      .status(500)
+      .json({ error: 'Failed to log in', details: error.message });
   }
 };
 
@@ -70,7 +77,9 @@ userController.getUserInfo = async (req, res) => {
     return res.status(200).json({ message: 'User info retrieved', user });
   } catch (error) {
     console.error('Error fetching user info:', error);
-    return res.status(500).json({ error: 'Failed to fetch user info', details: error.message });
+    return res
+      .status(500)
+      .json({ error: 'Failed to fetch user info', details: error.message });
   }
 };
 
@@ -87,7 +96,9 @@ userController.deleteUser = async (req, res) => {
     return res.status(200).json({ message: 'User deleted successfully' });
   } catch (error) {
     console.error('Error deleting user:', error);
-    return res.status(500).json({ error: 'Failed to delete user', details: error.message });
+    return res
+      .status(500)
+      .json({ error: 'Failed to delete user', details: error.message });
   }
 };
 
