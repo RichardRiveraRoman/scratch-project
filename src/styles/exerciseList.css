@@ -1,14 +1,12 @@
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  gap: 16px; /* Space between cards */
-  padding: 16px;
-}
 .card {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
   text-align: center;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
 }
