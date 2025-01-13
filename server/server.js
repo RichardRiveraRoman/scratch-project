@@ -46,8 +46,7 @@ app.use((err, _req, res) => {
 });
 
 // MongoDB connection string from .env
-const MONGO_URI =
-  'mongodb+srv://somayeh:codesmith123@cluster0.ykuif.mongodb.net/scratch-project?retryWrites=true&w=majority';
+const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
   console.error(MONGO_URI);
   process.exit(1);
