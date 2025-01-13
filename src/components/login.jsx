@@ -10,7 +10,7 @@ const LoginPage = () => {
   const handleOAuthLogin = () => {
     window.location.assign(
       'https://github.com/login/oauth/authorize?client_id=' +
-        import.meta.env.VITE_CLIENT_ID,
+        import.meta.env.VITE_CLIENT_ID
     );
   };
 
@@ -29,7 +29,7 @@ const LoginPage = () => {
           {/*  Normal login UI */}
           <Col md={4} className='border  rounded'>
             <div className='text-center mb-4 '>
-              <h2>Sign In</h2>
+              <h2 style={{ marginTop: '10px' }}>Sign In</h2>
             </div>
             <Button
               variant='secondary'
