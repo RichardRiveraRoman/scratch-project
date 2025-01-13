@@ -1,12 +1,16 @@
-/* eslint-disable no-unused-vars */
-import React from 'react';
+import useOAuth from '../hooks/useOAuth';
 import { Link } from 'react-router';
 import { Button, Form, Container, Row, Col } from 'react-bootstrap';
 import '../styles/login.css';
 
 const LoginPage = () => {
-  const handleOAuthLogin = (e) => {
-    console.log('Sign in with OAuth');
+  const token = useOAuth();
+
+  const handleOAuthLogin = () => {
+    window.location.assign(
+      'https://github.com/login/oauth/authorize?client_id=' +
+        import.meta.env.VITE_CLIENT_ID,
+    );
   };
 
   const handleFormSubmit = (e) => {
