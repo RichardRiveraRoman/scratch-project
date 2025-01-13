@@ -5,7 +5,7 @@ import exerciseController from '../controllers/exerciseController.js';
 const router = express.Router();
 
 router.get('/', authenticate, exerciseController.getAllExercises);
-router.post('/', authenticate, exerciseController.createEsercise);
+router.post('/', authenticate, exerciseController.createExercise);
 router.put('/:id', exerciseController.updateExercise);
 router.delete('/:id', exerciseController.deleteExercise);
 
