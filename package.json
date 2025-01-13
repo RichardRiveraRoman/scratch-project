@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && node server.js",
-    "client": "cd src && npm run dev",
+    "server": "node server/server.js",
+    "client": "npm run dev",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
