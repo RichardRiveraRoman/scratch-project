@@ -31,19 +31,16 @@ exerciseController.createEsercise = async (req, res) => {
     if (!type || !duration) {
       return res.status(400).json({ error: 'Type and duration are required' });
     }
-
     // Create new exercise
-    const exercise = new Exercise({
+    const exercise = await Exercise.create({
       type,
       distance,
       duration,
       date,
       caloriesBurned,
       userId: '678449e8240629f7a64dce95',
-      //   userId: req.user.username,
+      // userId: req.user.username, // Assuming `username` is in the JWT payload
     });
-
-    await exercise.save();
 
     res
       .status(201)
@@ -54,4 +51,49 @@ exerciseController.createEsercise = async (req, res) => {
   }
 };
 
+exerciseController.updateExercise = async (req, res) => {
+  const { id } = req.params;
+  const { type, distance, duration, date, caloriesBurned } = req.body;
+  console.log('in updateExercise: ', id, {
+    type,
+    distance,
+    duration,
+    date,
+    caloriesBurned,
+  });
+  try {
+    // Validate required fields
+    if (!type || !duration) {
+      return res.status(400).json({ error: 'Type and duration are required' });
+    }
+    const exerciseUpdated = await Exercise.findByIdAndUpdate(
+      id,
+      { type, distance, duration, date, caloriesBurned },
+      { new: true }
+    );
+    if (!exerciseUpdated) {
+      res.status(404).json({ error: 'Failed to Update exercise' });
+    }
+    res.status(200).json('Exercise is updated successfully!');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to Update exercise' });
+  }
+};
+
+exerciseController.deleteExercise = async (req, res) => {
+  const { id } = req.params;
+  console.log('in deleteExercise: ', id);
+
+  try {
+    const exerciseDeleted = await Exercise.findByIdAndDelete(id);
+    if (!exerciseDeleted) {
+      res.status(404).json({ error: 'Failed to delete exercise' });
+    }
+    res.status(200).json('Exercise is delete successfully!');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete exercise' });
+  }
+};
 export default exerciseController;

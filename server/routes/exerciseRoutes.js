@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', authenticate, exerciseController.getAllExercises);
 router.post('/', authenticate, exerciseController.createEsercise);
-// router.put();
-// router.delete();
+router.put('/:id', exerciseController.updateExercise);
+router.delete('/:id', exerciseController.deleteExercise);
 
 export default router;
