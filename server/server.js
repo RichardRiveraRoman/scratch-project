@@ -6,8 +6,8 @@ import userRoutes from './routes/userRoutes.js';
 import oauthRoutes from './routes/oauthRoutes.js';
 import exerciseRoutes from './routes/exerciseRoutes.js';
 
-// PORT defined in .env or defaults to 4000
-const PORT = process.env.PORT || 4000;
+// PORT defined in .env or defaults to 3000
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
@@ -15,7 +15,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 // Routes
 app.use('/api/user', userRoutes); // normal user signup/login
@@ -46,7 +45,9 @@ app.use((err, _req, res) => {
 });
 
 // MongoDB connection string from .env
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI =
+  'mongodb+srv://Boyu:y5EbF1PuTBr1BVpS@codesmith.gyb8i.mongodb.net/?retryWrites=true&w=majority&appName=Codesmith';
+// const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
   console.error(MONGO_URI);
   process.exit(1);
