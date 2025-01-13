@@ -10,6 +10,7 @@ router.get(
   authenticate,
   exerciseController.getAllExercisesByType
 );
+
 router.post('/', authenticate, exerciseController.createExercise);
 router.put('/:id', exerciseController.updateExercise);
 router.delete('/:id', exerciseController.deleteExercise);
