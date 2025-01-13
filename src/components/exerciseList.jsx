@@ -19,21 +19,18 @@ const ExerciseList = () => {
         },
       });
       if (!response.ok) {
-        //toast
         console.error('Failed to fetch todos');
       }
       const exercises = await response.json();
       setExercises(exercises);
+      console.log(exercises);
     } catch (error) {
       console.error('Error fetching todos:', error);
     }
   };
-  const deleteExercise = (id) => {
-    console.log('Delete exercise:', id);
-  };
 
-  const updateExercise = (id) => {
-    console.log('Update exercise:', id);
+  const onMoreInformation = (type) => {
+    console.log('onMoreInformation exercise:', type);
   };
   useEffect(() => {
     fetchExercise();
@@ -47,8 +44,7 @@ const ExerciseList = () => {
           <ExerciseCard
             key={exercise._id}
             exercise={exercise}
-            onDelete={deleteExercise}
-            onUpdate={updateExercise}
+            onMoreInformation={onMoreInformation}
           />
         ))}
       </div>
