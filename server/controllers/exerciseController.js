@@ -69,7 +69,7 @@ exerciseController.updateExercise = async (req, res) => {
     const exerciseUpdated = await Exercise.findByIdAndUpdate(
       id,
       { type, distance, duration, date, caloriesBurned },
-      { new: true }
+      { new: true },
     );
     if (!exerciseUpdated) {
       res.status(404).json({ error: 'Failed to Update exercise' });

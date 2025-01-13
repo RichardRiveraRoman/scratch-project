@@ -7,14 +7,22 @@ export default function useOAuth() {
     const urlParams = new URLSearchParams(window.location.search);
     const codeParam = urlParams.get('code');
 
+    // local storage is convinient a
+    // user can leave our web page and
+    // come back and still be logged in
+    // Bad security practice unless we
+    // use https only cookies for storage
+
     if (codeParam && !token) {
-      async function getAccessToken() {
+      (async function fetchToken() {
         try {
+          // GET access token from /api/oauth/github/access-token
           const response = await fetch(
-            `http://localhost:3000/getAccessToken?code=${codeParam}`,
+            `http://localhost:3000/api/oauth/github/access-token?code=${codeParam}`,
           );
           const data = await response.json();
 
+          // If our server returns a token, store it
           if (data.access_token) {
             localStorage.setItem('accessToken', data.access_token);
             setToken(data.access_token);
@@ -22,8 +30,7 @@ export default function useOAuth() {
         } catch (error) {
           console.error('Error fetching token:', error);
         }
-      }
-      getAccessToken();
+      })();
     }
   }, [token]);
 

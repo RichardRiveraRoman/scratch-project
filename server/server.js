@@ -1,100 +1,25 @@
 import 'dotenv/config';
 import cors from 'cors';
-// import { fileURLToPath } from 'url';
 import express from 'express';
-// import path from 'path';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
+import oauthRoutes from './routes/oauthRoutes.js';
 import exerciseRoutes from './routes/exerciseRoutes.js';
 
 // PORT defined in .env or defaults to 4000
 const PORT = process.env.PORT || 4000;
-
-// OAuth Client Credentials
-// Note: For Vite, CLIENT_ID should be something like process.env.VITE_CLIENT_ID
-const CLIENT_ID = process.env.VITE_CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 const app = express();
 
 // Enable CORS (Cross-Origin Resource Sharing)
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Routes
-app.use('/api/user', userRoutes);
+app.use('/api/user', userRoutes); // normal user signup/login
+app.use('/api/oauth', oauthRoutes); // GitHub OAuth
 app.use('/api/exercise', exerciseRoutes);
-app.post('/api/login', (_req, res) => {
-  console.log('in login');
-
-  // const { username, password } = req.body;
-  res.status(200).json({ message: 'Login successful' });
-});
-
-// Route to exchange GitHub OAuth code for an access token
-app.get('/getAccessToken', async (req, res) => {
-  // Log the 'code' query parameter received from the client
-  console.log('Received OAuth code:', req.query.code);
-
-  // Build the query string for GitHub token exchange
-  const params =
-    '?client_id=' +
-    CLIENT_ID +
-    '&client_secret=' +
-    CLIENT_SECRET +
-    '&code=' +
-    req.query.code;
-
-  await fetch('https://github.com/login/oauth/access_token' + params, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-    },
-  })
-    .then((response) => {
-      // Parse the JSON response from GitHub
-      return response.json();
-    })
-    .then((data) => {
-      // Log the access token response to see what GitHub returned
-      console.log('Access token response from GitHub:', data);
-      // Send the same data back to the client as JSON
-      res.json(data);
-    })
-    .catch((err) => {
-      // Log any error that occurred during the fetch
-      console.log('Error retrieving access token:', err);
-    });
-});
-
-// Route to fetch user data from GitHub using the access token
-app.get('/getUserData', async (req, res) => {
-  // This is where we get the Authorization header: Bearer YOUR_ACCESS_TOKEN
-  const authorizationHeader = req.get('Authorization');
-  console.log('Authorization header:', authorizationHeader);
-
-  await fetch('https://api.github.com/user', {
-    method: 'GET',
-    headers: {
-      // Forward the Authorization header to GitHub
-      Authorization: authorizationHeader,
-    },
-  })
-    .then((response) => {
-      // Parse the JSON response containing user data
-      return response.json();
-    })
-    .then((data) => {
-      // Log the user's GitHub profile information
-      console.log('GitHub user data:', data);
-      // Send that data back to the client
-      res.json(data);
-    })
-    .catch((err) => {
-      // Log any error that occurred while fetching user data
-      console.log('Error retrieving user data:', err);
-    });
-});
 
 // 404 or “Not Found” Handler
 app.use((_req, _res, next) => {
