@@ -1,32 +1,50 @@
+import 'dotenv/config';
+import cors from 'cors';
 import express from 'express';
 import mongoose from 'mongoose';
-import 'dotenv/config';
+import userRoutes from './routes/userRoutes.js';
+import oauthRoutes from './routes/oauthRoutes.js';
+import exerciseRoutes from './routes/exerciseRoutes.js';
 
-// PORT defined in .env or defaults to 4000;
+// PORT defined in .env or defaults to 4000
 const PORT = process.env.PORT || 4000;
+
 const app = express();
 
-// Middleware that handles parsing request body
+// Enable CORS (Cross-Origin Resource Sharing)
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Routes
-app.use('/users');
+app.use('/api/user', userRoutes); // normal user signup/login
+app.use('/api/oauth', oauthRoutes); // GitHub OAuth
+app.use('/api/exercise', exerciseRoutes);
 
-// Error handler
+// 404 or “Not Found” Handler
+app.use((_req, _res, next) => {
+  const error = new Error('Route Not Found');
+  error.status = 404;
+  next(error);
+});
+
+// Error handler (Note: the signature is usually (err, req, res, next))
 app.use((err, _req, res) => {
+  // Default error object
   const defaultErr = {
-    log: 'Express error handler caught unkown middleware error',
+    log: 'Express error handler caught unknown middleware error',
     status: 500,
     message: { err: 'An error occurred' },
   };
 
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj);
+  // Log the error object
+  console.log('Error object:', errorObj);
 
   return res.status(errorObj.status).json(errorObj.message);
 });
 
-// Atlas database connection
+// MongoDB connection string from .env
 const { MONGO_URI } = process.env;
 if (!MONGO_URI) {
   console.error('MONGO_URI not defined in .env file');
@@ -38,13 +56,14 @@ const clientOptions = {
   serverApi: { version: '1', strict: true, deprecationErrors: true },
 };
 
+// Start the server after connecting to MongoDB
 async function startServer() {
   try {
-    // Connect to MongoDB
+    // Attempt to connect to MongoDB
     await mongoose.connect(MONGO_URI, clientOptions);
     console.log('Successfully connected to MongoDB!');
 
-    // Start the server only after the DB connection is successful
+    // If DB connection is successful, start the server
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
     });
@@ -55,11 +74,12 @@ async function startServer() {
   }
 }
 
-// gracefully shutdown server when you CTRL-C
+// Gracefully shut down server when you CTRL-C
 process.on('SIGINT', async () => {
   console.log('Received SIGINT. Graceful shutdown start');
   await mongoose.disconnect();
   process.exit(0);
 });
 
+// Initiate the startup sequence
 startServer();
