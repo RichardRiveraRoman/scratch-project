@@ -16,10 +16,10 @@ exerciseController.getAllExercises = async (req, res) => {
   }
 };
 
-exerciseController.createEsercise = async (req, res) => {
+exerciseController.createExercise = async (req, res) => {
   try {
     const { type, distance, duration, date, caloriesBurned } = req.body;
-    console.log('in createEsercise', {
+    console.log('in createExercise', {
       type,
       distance,
       duration,
