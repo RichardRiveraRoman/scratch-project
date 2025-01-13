@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const SALT_WORK_FACTOR = 10;
 

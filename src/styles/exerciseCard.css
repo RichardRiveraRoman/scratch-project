@@ -1,0 +1,19 @@
+.exercise-card {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  width: 18rem;
+  background-color: rgb(27, 78, 78) !important;
+}
+
+.exercise-card h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.exercise-card button {
+  margin-right: 5px;
+}
