@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import config from '../config';
 import { useNavigate } from 'react-router-dom';
 import ExerciseCard from './exerciseCard';
+import '../styles/exerciseList.css';
 
 const ExerciseList = () => {
   const [exercises, setExercises] = useState([]);
@@ -37,11 +38,15 @@ const ExerciseList = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ width: '100%'}}>
       <h1>My Exercises</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div
+        className='card-container'
+        // style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'evenly' }}
+      >
         {exercises.map((exercise) => (
           <ExerciseCard
+            className='card'
             key={exercise._id}
             exercise={exercise}
             onMoreInformation={onMoreInformation}

@@ -35,7 +35,7 @@ const ExerciseCard = ({ exercise, onMoreInformation }) => {
       </ListGroup>
       <Card.Body>
         <Button
-          variant='primary'
+          className='update-btn'
           onClick={() => onMoreInformation(type)}
           style={{ marginRight: '10px' }}
         >
