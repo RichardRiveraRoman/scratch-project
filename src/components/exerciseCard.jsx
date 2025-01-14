@@ -5,11 +5,13 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 const ExerciseCard = ({ exercise, onMoreInformation }) => {
   const { type, distance, duration, date, caloriesBurned, _id } =
     exercise.latestExercise;
   console.log({ type, distance, duration, date, caloriesBurned, _id });
+  const navigate = useNavigate();
 
   return (
     <Card className='exercise-card'>
@@ -36,7 +38,7 @@ const ExerciseCard = ({ exercise, onMoreInformation }) => {
       <Card.Body>
         <Button
           className='update-btn'
-          onClick={() => onMoreInformation(type)}
+          onClick={() => navigate(`/details/${type}`)}
           style={{ marginRight: '10px' }}
         >
           More Information
