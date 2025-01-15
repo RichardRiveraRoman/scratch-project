@@ -110,7 +110,7 @@ export default function UserEntries() {
             <input
               type='number'
               value={fluidIntake}
-              onChange={(e) => setTime(Number(e.target.value))}
+              onChange={(e) => setFluidIntake(Number(e.target.value))}
               placeholder='Enter fluid intake'
               required
             />
@@ -128,7 +128,7 @@ export default function UserEntries() {
             <input
               type='number'
               value={hoursSlept}
-              onChange={(e) => setTime(Number(e.target.value))}
+              onChange={(e) => setHoursSlept(Number(e.target.value))}
               placeholder='Enter time slept'
               required
             />
