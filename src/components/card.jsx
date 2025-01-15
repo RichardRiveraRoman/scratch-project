@@ -4,8 +4,8 @@ import '../styles/card.css';
 //create a functional component UserEntries
 export default function UserEntries() {
   //set up state with empty strings
-  const [exercise, setExercise] = useState('');
-  const [time, setTime] = useState('');
+  const [exercise, setExercise] = useState(''); //useRef
+  const [time, setTime] = useState(0);
   //array of exercise options to iterate through
   const exercises = [
     'Running',
@@ -51,7 +51,7 @@ export default function UserEntries() {
           <input
             type='number'
             value={time}
-            onChange={(e) => setTime(e.target.value)}
+            onChange={(e) => setTime(Number(e.target.value))}
             placeholder='Enter time'
             required
           />
