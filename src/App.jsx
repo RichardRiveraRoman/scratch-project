@@ -2,9 +2,8 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./components/login";
 import Signup from "./components/signup";
-import Tabs from "./components/tabs";
+import HabitsTracker from "./components/habitsTracker";
 import healthLogo from "./assets/health_logo.png";
-import ExerciseDetails from "./components/ExerciseDetails";
 
 function App() {
   return (
@@ -34,9 +33,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         {/* Route for the signup page */}
         <Route path='/signup' element={<Signup />} />
-        <Route path='/tabs' element={<Tabs />} />
-        <Route path='/details/:type' element={<ExerciseDetails />} />
-        {/* <Route path='/details/:type' element={<ExerciseDetails  />} /> */}
+        <Route path='/habitsTracker' element={<HabitsTracker />} />
         {/* Add a new route for the History component */}
         <Route path='/history' element={<History />} />
       </Routes>
