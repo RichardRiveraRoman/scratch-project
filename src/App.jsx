@@ -1,10 +1,10 @@
-import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Login from './components/login';
-import Signup from './components/signup';
-import Tabs from './components/tabs';
-import healthLogo from './assets/health_logo.png';
-import ExerciseDetails from './components/ExerciseDetails';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Login from "./components/login";
+import Signup from "./components/signup";
+import Tabs from "./components/tabs";
+import healthLogo from "./assets/health_logo.png";
+import ExerciseDetails from "./components/ExerciseDetails";
 
 function App() {
   return (
@@ -37,6 +37,8 @@ function App() {
         <Route path='/tabs' element={<Tabs />} />
         <Route path='/details/:type' element={<ExerciseDetails />} />
         {/* <Route path='/details/:type' element={<ExerciseDetails  />} /> */}
+        {/* Add a new route for the History component */}
+        <Route path='/history' element={<History />} />
       </Routes>
     </Router>
   );
