@@ -1,0 +1,40 @@
+.workout-entry {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 300px;
+}
+
+.workout-entry form {
+  display: flex;
+  flex-direction: column;
+}
+
+.workout-entry label {
+  margin-bottom: 10px;
+}
+
+.workout-entry select,
+.workout-entry input {
+  margin-top: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.workout-entry button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.workout-entry button:hover {
+  background-color: #0056b3;
+}

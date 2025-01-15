@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import '../styles/habitsTracker.css';
+import UserEntries from './card';
 
 export default function Tabs() {
   const [active, setActive] = useState('tab-1');
@@ -32,6 +33,8 @@ export default function Tabs() {
           <div className={`tab-page ${active === 'tab-1' ? 'active' : ''}`}>
             <h2>Exercises</h2>
             <p>Log your workouts, set goals, and monitor progress.</p>
+            {/* Add the WorkoutEntry component here */}
+            <UserEntries />
           </div>
           <div className={`tab-page ${active === 'tab-2' ? 'active' : ''}`}>
             <h2>Results</h2>
