@@ -45,8 +45,7 @@ app.use((err, _req, res) => {
 });
 
 // MongoDB connection string from .env
-const MONGO_URI =
-  'mongodb+srv://Boyu:y5EbF1PuTBr1BVpS@codesmith.gyb8i.mongodb.net/?retryWrites=true&w=majority&appName=Codesmith';
+const MONGO_URI = process.env.MONGO_URI;
 // const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
   console.error(MONGO_URI);
