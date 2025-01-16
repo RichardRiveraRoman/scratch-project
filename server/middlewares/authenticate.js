@@ -1,27 +1,28 @@
-/* eslint-disable no-unused-vars */
 import jwt from 'jsonwebtoken';
 
-const authenticate = (req, res, next) => {
-  // const authHeader = req.headers['authorization'];
-  // if (!authHeader) {
-  //   return res.status(401).json({ message: 'Authorization header missing' });
-  // }
+const secretKey = process.env.JWT_SECRET;
 
-  // const token = authHeader.split(' ')[1]; // Extract token from "Bearer <token>"
-  // if (!token) {
-  //   return res.status(401).json({ message: 'Token missing' });
-  // }
-
+export default function authenticate(req, res, next) {
   try {
-    // const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
-    // console.log('in authenticate', decoded);
+    // Add debug logging
+    // console.log('Cookies received:', req.cookies);
+    // console.log('Raw Cookie header:', req.headers.cookie);
 
-    // req.userId = decoded.id; // Attach user ID to the request object
-    req.userId = '678449e8240629f7a64dce95';
-    next();
-  } catch (err) {
-    return res.status(403).json({ message: 'Invalid or expired token' });
+    const token = req.cookies.token;
+
+    if (!token) {
+      return res.status(401).json({ error: 'Authentication required' });
+    }
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ error: 'Failed to authenticate token' });
+      }
+      req.userId = decoded.userId;
+      next();
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Server error' });
   }
-};
-
-export default authenticate;
+}
