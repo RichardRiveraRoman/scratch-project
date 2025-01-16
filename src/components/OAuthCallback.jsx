@@ -39,7 +39,7 @@ const OAuthCallback = ({ githubToken }) => {
 
         // If our server returns a token, store it
         if (upsertData.token) {
-          localStorage.setItem('appToken', upsertData.token);
+          localStorage.setItem('token', upsertData.token);
         }
         // Redirect to a logged-in page
         navigate('/tabs');
