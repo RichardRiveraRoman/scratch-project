@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../styles/habitsTracker.css';
 import UserEntries from './card';
 
-export default function Tabs() {
+export default function HabitsTracker() {
   const [active, setActive] = useState('tab-1');
 
   const handleClick = (event) => {
@@ -38,7 +37,9 @@ export default function Tabs() {
           </div>
           <div className={`tab-page ${active === 'tab-2' ? 'active' : ''}`}>
             <h2>Results</h2>
-            <p>Keep track of your workouts and the progress you've made.</p>
+            <p>
+              Keep track of your workouts and the progress you&apos;ve made.
+            </p>
           </div>
         </div>
       </div>
