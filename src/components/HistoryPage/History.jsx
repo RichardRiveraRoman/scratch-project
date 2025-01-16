@@ -1,8 +1,8 @@
 // History.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import HistoryBox from './HistoryBox'; // Import HistoryBox component
 import Legend from './Legend'; // Import Legend component
-import styles from './HistoryStyles'; // Import styles from HistoryStyles.js
+import styles from '../../styles/HistoryStyles'; // Import styles from HistoryStyles.js
 
 const History = () => {
   const [history, setHistory] = useState([
