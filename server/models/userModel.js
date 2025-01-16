@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     lowercase: true,
+    index: true,
   },
   password: {
     type: String,
@@ -34,7 +35,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+}, { timestamps: true });
 
 userSchema.pre("save", async function (next) {
   try {
