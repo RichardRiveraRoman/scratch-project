@@ -18,7 +18,7 @@ export const getAccessToken = async (req, res) => {
       {
         method: 'POST',
         headers: { Accept: 'application/json' },
-      },
+      }
     );
     const data = await response.json();
     // Log the access token response to see what GitHub returned
@@ -76,6 +76,14 @@ export const upsertUser = async (req, res) => {
       expiresIn: '1h',
     });
 
+    // Set HTTP-only cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 1000 * 60 * 60, // 1 hour in milliseconds
+    });
+
     return res.json({
       success: true,
       user: {
@@ -85,7 +93,6 @@ export const upsertUser = async (req, res) => {
         name: user.name,
         avatarUrl: user.avatarUrl,
       },
-      token,
     });
   } catch (err) {
     console.error('Error in /github upsert route:', err);
