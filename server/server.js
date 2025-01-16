@@ -5,21 +5,23 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import oauthRoutes from './routes/oauthRoutes.js';
 import exerciseRoutes from './routes/exerciseRoutes.js';
+import habitRoutes from './routes/habitRoutes.js';
 
-// PORT defined in .env or defaults to 4000
-const PORT = process.env.PORT || 4000;
+// PORT defined in .env or defaults to 3000
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 // Enable CORS (Cross-Origin Resource Sharing)
 app.use(cors());
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/user', userRoutes); // normal user signup/login
 app.use('/api/oauth', oauthRoutes); // GitHub OAuth
 app.use('/api/exercise', exerciseRoutes);
+app.use('/api/habits', habitRoutes);
 
 // 404 or “Not Found” Handler
 app.use((_req, _res, next) => {
@@ -45,9 +47,10 @@ app.use((err, _req, res) => {
 });
 
 // MongoDB connection string from .env
-const { MONGO_URI } = process.env;
+const MONGO_URI = process.env.MONGO_URI;
+// const MONGO_URI = process.env.MONGO_URI;
 if (!MONGO_URI) {
-  console.error('MONGO_URI not defined in .env file');
+  console.error(MONGO_URI);
   process.exit(1);
 }
 

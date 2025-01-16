@@ -2,9 +2,9 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './components/login';
 import Signup from './components/signup';
-import Tabs from './components/tabs';
+import HabitsTracker from './components/habitsTracker';
 import healthLogo from './assets/health_logo.png';
-
+import History from './components/HistoryPage/History';
 function App() {
   return (
     <Router>
@@ -33,7 +33,9 @@ function App() {
         <Route path='/login' element={<Login />} />
         {/* Route for the signup page */}
         <Route path='/signup' element={<Signup />} />
-        <Route path='/tabs' element={<Tabs />} />
+        <Route path='/habitsTracker' element={<HabitsTracker />} />
+        {/* Route for the History component */}
+        <Route path='/history' element={<History />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,80 @@
+.workout-entry {
+  font-family: Arial, sans-serif;
+  margin: 20px auto;
+  width: 100%;
+  max-width: 600px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin: 0;
+}
+
+input,
+select {
+  padding: 8px;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+label.inline {
+  flex-direction: row;
+  /* align-items: center; */
+  gap: 10px;
+  margin: 0;
+}
+
+.static-box {
+  padding: 8px 5px;
+  font-size: 16px;
+  border: 1px solid rgb(133, 128, 128);
+  border-radius: 4px;
+  background-color: #ffffff;
+  width: 150px;
+  text-align: center;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.label-text {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.submit {
+  margin-top: 30px;
+}
