@@ -1,7 +1,7 @@
 // HistoryBox.jsx
 import React from 'react';
 import Button from './Button'; // Import Button component
-import styles from './HistoryStyles'; // Import styles from HistoryStyles.js
+import styles from '../../styles/HistoryStyles'; // Import styles from HistoryStyles.js
 
 const HistoryBox = ({ day, date, onEdit, onDelete, circleColor, ratio }) => {
   return (
