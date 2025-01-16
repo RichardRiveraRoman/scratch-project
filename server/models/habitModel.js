@@ -17,7 +17,7 @@ const habitSchema = new Schema(
         },
         unit: {
           type: String,
-          enum: ['ml', 'oz'], // Example units
+          enum: ['ml', 'oz'],
           required: true,
         },
       },
@@ -28,7 +28,7 @@ const habitSchema = new Schema(
         },
         unit: {
           type: String,
-          enum: ['minutes', 'hours'], // Example units
+          enum: ['minutes', 'hours'],
           required: true,
         },
       },
@@ -39,7 +39,7 @@ const habitSchema = new Schema(
         },
         unit: {
           type: String,
-          enum: ['hours'], // Example units
+          enum: ['hours'],
           required: true,
         },
       },
@@ -50,7 +50,7 @@ const habitSchema = new Schema(
         },
         unit: {
           type: String,
-          enum: ['minutes'], // Example units
+          enum: ['minutes'],
           required: true,
         },
       },

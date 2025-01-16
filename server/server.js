@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
@@ -13,8 +14,14 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Enable CORS (Cross-Origin Resource Sharing)
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  }),
+);
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes

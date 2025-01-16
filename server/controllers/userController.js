@@ -21,9 +21,27 @@ userController.registerUser = async (req, res) => {
     }
 
     const user = await User.create({ name, email, password });
+    
+    // Create token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    // Set HTTP-only cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Use secure in production
+      sameSite: 'strict',
+      maxAge: 1000 * 60 * 60 // 1 hour in milliseconds
+    });
+
     return res
       .status(201)
-      .json({ message: 'User registered successfully', user });
+      .json({ message: 'User registered successfully', user: { 
+        _id: user._id, 
+        name: user.name, 
+        email: user.email 
+      }});
   } catch (error) {
     console.error('Error registering user:', error);
     return res
@@ -55,7 +73,22 @@ userController.loginUser = async (req, res) => {
       expiresIn: '1h',
     });
 
-    return res.status(200).json({ message: 'Login successful', token });
+    // Set HTTP-only cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Use secure in production
+      sameSite: 'strict',
+      maxAge: 1000 * 60 * 60 // 1 hour in milliseconds
+    });
+
+    return res.status(200).json({ 
+      message: 'Login successful',
+      user: { 
+        _id: user._id, 
+        name: user.name, 
+        email: user.email 
+      }
+    });
   } catch (error) {
     console.error('Error logging in user:', error);
     return res
@@ -64,42 +97,16 @@ userController.loginUser = async (req, res) => {
   }
 };
 
-userController.getUserInfo = async (req, res) => {
-  const { userId } = req;
-  console.log('Fetching user info for userId:', userId);
-
-  try {
-    const user = await User.findById(userId).select('-password');
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    return res.status(200).json({ message: 'User info retrieved', user });
-  } catch (error) {
-    console.error('Error fetching user info:', error);
-    return res
-      .status(500)
-      .json({ error: 'Failed to fetch user info', details: error.message });
-  }
-};
-
-userController.deleteUser = async (req, res) => {
-  const { userId } = req.params;
-  console.log('Deleting user with userId:', userId);
-
-  try {
-    const deletedUser = await User.findByIdAndDelete(userId);
-    if (!deletedUser) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    return res.status(200).json({ message: 'User deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting user:', error);
-    return res
-      .status(500)
-      .json({ error: 'Failed to delete user', details: error.message });
-  }
+// Add logout endpoint
+userController.logoutUser = async (req, res) => {
+  res.cookie('token', '', {
+    httpOnly: true,
+    expires: new Date(0),
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict'
+  });
+  
+  return res.status(200).json({ message: 'Logged out successfully' });
 };
 
 export default userController;

@@ -1,5 +1,4 @@
 // Legend.jsx
-import React from 'react';
 import styles from '../../styles/HistoryStyles'; // Import styles from HistoryStyles.js
 
 const Legend = () => (

@@ -3,43 +3,47 @@ import bcrypt from 'bcrypt';
 
 const SALT_WORK_FACTOR = 10;
 
-const userSchema = new mongoose.Schema({
-  // For local auth
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    unique: true,
-    lowercase: true,
-  },
-  password: {
-    type: String,
-    minlength: 8,
-  },
+const userSchema = new mongoose.Schema(
+  {
+    // For local auth
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+      lowercase: true,
+      index: true,
+    },
+    password: {
+      type: String,
+      minlength: 8,
+    },
 
-  // For GitHub OAuth
-  githubId: {
-    type: String,
-    unique: true,
-  },
-  avatarUrl: {
-    type: String,
-  },
+    // For GitHub OAuth
+    githubId: {
+      type: String,
+      sparse: true,
+    },
+    avatarUrl: {
+      type: String,
+    },
 
-  // Timestamps
-  createdAt: {
-    type: Date,
-    default: Date.now,
+    // Timestamps
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-});
+  { timestamps: true },
+);
 
-userSchema.pre("save", async function (next) {
+userSchema.pre('save', async function (next) {
   try {
     // Check if the password has been modified
-    if (!this.isModified("password")) return next();
+    if (!this.isModified('password')) return next();
 
     // Generate a salt and hash the password
     const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
@@ -50,5 +54,5 @@ userSchema.pre("save", async function (next) {
     next(error); // Pass any errors to the next middleware
   }
 });
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 export default User;
